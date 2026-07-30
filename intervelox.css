@@ -44,9 +44,9 @@ img { display: block; max-width: 100%; }
   z-index: 50;
   backdrop-filter: blur(12px);
 }
-.nav { align-items: center; display: flex; height: 126px; justify-content: space-between; }
+.nav { align-items: center; display: flex; height: 140px; justify-content: space-between; }
 .brand { align-items: center; display: inline-flex; font-size: .92rem; font-weight: 700; gap: 10px; letter-spacing: .17em; }
-.brand img { height: 122px; object-fit: contain; width: 220px; }
+.brand img { height: 138px; object-fit: contain; width: 250px; }
 .nav-links { align-items: center; display: flex; gap: 28px; }
 .nav-links a { color: rgba(255,255,255,.82); font-size: .92rem; }
 .nav-links a:hover { color: #fff; }
@@ -61,7 +61,7 @@ img { display: block; max-width: 100%; }
   color: #fff;
   display: flex;
   min-height: 760px;
-  padding: 180px 0 70px;
+  padding: 194px 0 70px;
   position: relative;
 }
 .hero-overlay { background: linear-gradient(90deg, rgba(10,24,18,.92), rgba(10,24,18,.48)); inset: 0; position: absolute; }
@@ -210,7 +210,7 @@ dialog::backdrop { background: rgba(9,16,13,.75); backdrop-filter: blur(4px); }
   .hotel-grid { grid-template-columns: 1fr 1fr; }
   .map-layout, .about-layout, .contact-layout { gap: 40px; grid-template-columns: 1fr; }
   .menu-button { display: block; }
-  .nav-links { background: #000; display: none; flex-direction: column; inset: 126px 0 auto; padding: 25px; position: fixed; }
+  .nav-links { background: #000; display: none; flex-direction: column; inset: 140px 0 auto; padding: 25px; position: fixed; }
   .nav-links.open { display: flex; }
 }
 @media (max-width: 640px) {
@@ -225,8 +225,8 @@ dialog::backdrop { background: rgba(9,16,13,.75); backdrop-filter: blur(4px); }
   .feature-list { grid-template-columns: 1fr; }
   .booking-head { grid-template-columns: 1fr; }
   .booking-head img { height: 180px; width: 100%; }
-  .nav { height: 96px; }
-  .brand img { height: 92px; width: 165px; }
-  .nav-links { inset: 96px 0 auto; }
+  .nav { height: 104px; }
+  .brand img { height: 100px; width: 180px; }
+  .nav-links { inset: 104px 0 auto; }
   .flash-offer-view, .flash-confirm-view { padding: 38px 22px; }
 }
