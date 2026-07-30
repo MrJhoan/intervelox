@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Intervelox: descubre hoteles en Colombia y reserva ofertas relámpago por tiempo limitado.">
+  <title>Intervelox | Hoteles y ofertas relámpago</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynBqN0A/JMZTCjMZQ3YB+QkMUE=" crossorigin="">
+  <link rel="stylesheet" href="intervelox.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header" id="inicio">
+    <nav class="nav shell" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Intervelox, inicio">
+        <span class="brand-mark">I</span>
+        <span>INTERVELOX</span>
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Abrir menú</span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="#ofertas">Ofertas</a>
+        <a href="#hoteles">Hoteles</a>
+        <a href="#mapa">Destinos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+        <button class="button button-small button-ghost" id="open-bookings" type="button">Mis reservas</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="shell hero-content">
+        <p class="eyebrow">Hospedajes en Colombia</p>
+        <h1>Un gran viaje puede comenzar con una oferta inesperada.</h1>
+        <p class="hero-copy">Compara hoteles, encuentra descuentos de tiempo limitado y reserva una estadía pensada para ti.</p>
+
+        <form class="search-panel" id="search-form">
+          <label>
+            <span>Destino</span>
+            <select id="destination" name="destination">
+              <option value="all">Toda Colombia</option>
+              <option value="Bucaramanga">Bucaramanga</option>
+              <option value="Bogotá">Bogotá</option>
+              <option value="Cartagena">Cartagena</option>
+              <option value="Medellín">Medellín</option>
+            </select>
+          </label>
+          <label>
+            <span>Llegada</span>
+            <input id="check-in" name="checkIn" type="date" required>
+          </label>
+          <label>
+            <span>Salida</span>
+            <input id="check-out" name="checkOut" type="date" required>
+          </label>
+          <label>
+            <span>Huéspedes</span>
+            <select id="guests" name="guests">
+              <option value="1">1 huésped</option>
+              <option value="2" selected>2 huéspedes</option>
+              <option value="3">3 huéspedes</option>
+              <option value="4">4 huéspedes</option>
+            </select>
+          </label>
+          <button class="button button-primary" type="submit">Buscar hoteles</button>
+        </form>
+        <p class="form-message" id="search-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="flash-section section" id="ofertas">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">Ofertas relámpago</p>
+            <h2>Precios especiales, por poco tiempo.</h2>
+          </div>
+          <div class="countdown" aria-label="Tiempo restante de las ofertas">
+            <span><strong id="hours">00</strong>horas</span>
+            <span><strong id="minutes">00</strong>min</span>
+            <span><strong id="seconds">00</strong>seg</span>
+          </div>
+        </div>
+        <p class="section-intro">Descuentos demostrativos inspirados en la idea original de Intervelox: cupos negociados con hoteles y disponibles únicamente durante una ventana limitada.</p>
+        <div class="hotel-grid" id="flash-grid"></div>
+      </div>
+    </section>
+
+    <section class="section hotels-section" id="hoteles">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Selección Intervelox</p>
+          <h2>Hoteles para descubrir Colombia.</h2>
+          <p id="results-copy">Explora nuestra selección de alojamientos.</p>
+        </div>
+        <div class="hotel-grid" id="hotel-grid"></div>
+      </div>
+    </section>
+
+    <section class="map-section section" id="mapa">
+      <div class="shell map-layout">
+        <div class="map-copy">
+          <p class="eyebrow">Explora por destino</p>
+          <h2>De Santander al Caribe.</h2>
+          <p>Ubica cada hotel en el mapa y descubre opciones en algunas de las ciudades más visitadas de Colombia.</p>
+          <div class="destination-chips" id="destination-chips"></div>
+        </div>
+        <div id="hotel-map" aria-label="Mapa de hoteles en Colombia"></div>
+      </div>
+    </section>
+
+    <section class="about-section section" id="nosotros">
+      <div class="shell about-layout">
+        <div>
+          <p class="eyebrow">Nuestra historia</p>
+          <h2>Una idea universitaria adelantada a su momento.</h2>
+        </div>
+        <div class="about-copy">
+          <p>Intervelox nació en 2022 como un proyecto académico de dos estudiantes de la Universidad Industrial de Santander. Su propuesta combinaba búsqueda de alojamientos en Colombia con ofertas relámpago: descuentos excepcionales habilitados por hoteles durante periodos breves.</p>
+          <p>Esta versión recupera el concepto original como una demostración interactiva. Permite buscar, comparar y simular reservas sin realizar cobros ni crear compromisos comerciales reales.</p>
+          <div class="feature-list">
+            <span>Comparación de hoteles</span>
+            <span>Descuentos temporizados</span>
+            <span>Reservas demostrativas</span>
+            <span>Mapa de destinos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section section" id="contacto">
+      <div class="shell contact-layout">
+        <div>
+          <p class="eyebrow">Contacto</p>
+          <h2>¿Tienes una pregunta sobre tu próxima estadía?</h2>
+          <p>Esta es una demostración académica. Puedes probar el formulario sin enviar información sensible.</p>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <label>Nombre<input name="name" type="text" autocomplete="name" required maxlength="80"></label>
+          <label>Correo<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+          <label class="full-field">Asunto<input name="subject" type="text" required maxlength="120"></label>
+          <label class="full-field">Mensaje<textarea name="message" rows="5" required maxlength="1000"></textarea></label>
+          <button class="button button-primary" type="submit">Enviar mensaje</button>
+          <p class="form-message" id="contact-message" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-layout">
+      <a class="brand" href="#inicio"><span class="brand-mark">I</span><span>INTERVELOX</span></a>
+      <p>Prototipo académico de reservas hoteleras y ofertas relámpago.</p>
+      <p>Colombia · 2022–2026</p>
+    </div>
+  </footer>
+
+  <dialog id="booking-dialog">
+    <button class="dialog-close" type="button" aria-label="Cerrar">×</button>
+    <div id="booking-content"></div>
+  </dialog>
+
+  <dialog id="bookings-dialog">
+    <button class="dialog-close" type="button" aria-label="Cerrar">×</button>
+    <p class="eyebrow">Guardadas en este dispositivo</p>
+    <h2>Mis reservas</h2>
+    <div id="bookings-list"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="intervelox.js"></script>
+</body>
+</html>
