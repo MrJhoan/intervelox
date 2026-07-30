@@ -100,6 +100,41 @@ Then open the local address shown in the terminal.
 
 A basic static server can also display the interface, but reservation and contact submissions require the API endpoints.
 
+## Run the Original PHP/MySQL Version
+
+The original 2022 implementation was designed to run locally with XAMPP. These steps preserve the workflow documented in the first version of the project:
+
+1. Download and install [XAMPP](https://www.apachefriends.org/).
+2. Place the repository inside XAMPP's `htdocs` directory. For example:
+
+   ```text
+   C:\xampp\htdocs\intervelox
+   ```
+
+3. Open `xampp-control.exe`.
+4. Start the **Apache** and **MySQL** services.
+5. Open the original application at:
+
+   ```text
+   http://localhost/intervelox/index.php
+   ```
+
+6. Open phpMyAdmin in another browser tab to inspect the local database:
+
+   ```text
+   http://localhost/phpmyadmin
+   ```
+
+The legacy connection file expects a MySQL database named `registro` running on `localhost`, with the default XAMPP user `root` and no password:
+
+```php
+mysqli_connect("localhost", "root", "", "registro");
+```
+
+The original contact workflow used a table named `datos`. Its fields were `id`, `name`, `email`, `elpepe`, and `etesech`; the final two were provisional names used for the subject and message. Because the original SQL export was not committed, the exact database schema and historical records cannot be recovered from this repository alone.
+
+This XAMPP version is retained for historical and academic reference. The deployed application uses the reconstructed demo and does not require PHP, MySQL, XAMPP, or phpMyAdmin.
+
 ## Demo Data and Limitations
 
 - Hotel and price information is illustrative and does not represent current commercial availability.
