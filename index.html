@@ -48,9 +48,12 @@
             <select id="destination" name="destination">
               <option value="all">Toda Colombia</option>
               <option value="Bucaramanga">Bucaramanga</option>
+              <option value="San Gil">San Gil</option>
               <option value="Bogotá">Bogotá</option>
               <option value="Cartagena">Cartagena</option>
               <option value="Medellín">Medellín</option>
+              <option value="Santa Marta">Santa Marta</option>
+              <option value="Cali">Cali</option>
             </select>
           </label>
           <label>
@@ -173,6 +176,38 @@
     <p class="eyebrow">Guardadas en este dispositivo</p>
     <h2>Mis reservas</h2>
     <div id="bookings-list"></div>
+  </dialog>
+
+  <dialog id="flash-dialog" class="flash-dialog">
+    <div class="flash-offer-view" id="flash-offer-view">
+      <button class="flash-close" id="flash-close" type="button" aria-label="Cerrar oferta relámpago">×</button>
+      <div class="lightning-stage" aria-hidden="true">
+        <span class="lightning lightning-one">ϟ</span>
+        <span class="lightning lightning-two">ϟ</span>
+        <span class="flash-pulse"></span>
+      </div>
+      <p class="eyebrow">Oferta relámpago encontrada</p>
+      <h2>Una escapada a San Gil acaba de bajar de precio.</h2>
+      <p>Hotel Terrazas de la Candelaria · descuento demostrativo del 32%.</p>
+      <div class="popup-countdown">
+        <span>Disponible durante</span>
+        <strong id="flash-popup-time">01:59:59</strong>
+      </div>
+      <div class="flash-actions">
+        <button class="button button-primary" id="accept-flash" type="button">Quiero esta oferta</button>
+        <button class="button button-outline" id="dismiss-flash" type="button">Seguir navegando</button>
+      </div>
+      <small>La oferta seguirá visible en la página principal si cierras este aviso.</small>
+    </div>
+    <div class="flash-confirm-view" id="flash-confirm-view" hidden>
+      <div class="confirm-icon">×</div>
+      <h2>¿Seguro que deseas cerrar esta oferta?</h2>
+      <p>La promoción seguirá disponible en la sección de ofertas durante <strong id="flash-confirm-time">01:59:59</strong>.</p>
+      <div class="flash-actions">
+        <button class="button button-primary" id="keep-flash" type="button">Seguir viendo la oferta</button>
+        <button class="button button-danger" id="confirm-dismiss-flash" type="button">Sí, cerrar aviso</button>
+      </div>
+    </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

@@ -61,6 +61,68 @@ const hotels = [
     rating: 4.7,
     amenities: "Rooftop · Piscina · Zona Rosa",
     image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1200&q=82"
+  },
+  {
+    id: "terrazas-candelaria",
+    name: "Hotel Terrazas de la Candelaria",
+    city: "San Gil",
+    coordinates: [6.5417, -73.1216],
+    price: 238000,
+    flashPrice: 162000,
+    rating: 4.6,
+    amenities: "Vista a la montaña · Piscina · Naturaleza",
+    image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1200&q=82"
+  },
+  {
+    id: "camino-real-san-gil",
+    name: "Hotel Camino Real",
+    city: "San Gil",
+    coordinates: [6.5362, -73.1185],
+    price: 215000,
+    rating: 4.5,
+    amenities: "Piscina · Restaurante · Zonas verdes",
+    image: "https://images.unsplash.com/photo-1587985064135-0366536eab42?auto=format&fit=crop&w=1200&q=82"
+  },
+  {
+    id: "hotel-caribe",
+    name: "Hotel Caribe",
+    city: "Cartagena",
+    coordinates: [10.3987, -75.5584],
+    price: 510000,
+    rating: 4.7,
+    amenities: "Playa · Jardines · Piscina",
+    image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=82"
+  },
+  {
+    id: "jw-marriott-bogota",
+    name: "JW Marriott Bogotá",
+    city: "Bogotá",
+    coordinates: [4.6572, -74.0556],
+    price: 760000,
+    rating: 4.8,
+    amenities: "Spa · Piscina cubierta · Restaurante",
+    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=82"
+  },
+  {
+    id: "zuana",
+    name: "Zuana Beach Resort",
+    city: "Santa Marta",
+    coordinates: [11.1497, -74.2247],
+    price: 545000,
+    flashPrice: 399000,
+    rating: 4.7,
+    amenities: "Parque acuático · Playa · Spa",
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=82"
+  },
+  {
+    id: "intercontinental-cali",
+    name: "InterContinental Cali",
+    city: "Cali",
+    coordinates: [3.4491, -76.5386],
+    price: 465000,
+    rating: 4.7,
+    amenities: "Piscina · Gastronomía · Zona oeste",
+    image: "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&w=1200&q=82"
   }
 ];
 
@@ -155,6 +217,7 @@ document.querySelector("#search-form").addEventListener("submit", event => {
   activeSearch = Object.fromEntries(form.entries());
   const results = destination === "all" ? hotels : hotels.filter(hotel => hotel.city === destination);
   renderHotels(results);
+  if (destination !== "all") focusCity(destination);
   document.querySelector("#hoteles").scrollIntoView({ behavior: "smooth" });
 });
 
@@ -257,6 +320,7 @@ document.querySelectorAll(".dialog-close").forEach(button => button.addEventList
 }));
 document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", event => {
   if (event.target === dialog) {
+    if (dialog.id === "flash-dialog") return;
     dialog.close();
     document.body.classList.remove("modal-open");
   }
@@ -290,6 +354,9 @@ function initCountdown() {
     document.querySelector("#hours").textContent = String(Math.floor(remaining / 3600000)).padStart(2, "0");
     document.querySelector("#minutes").textContent = String(Math.floor((remaining % 3600000) / 60000)).padStart(2, "0");
     document.querySelector("#seconds").textContent = String(Math.floor((remaining % 60000) / 1000)).padStart(2, "0");
+    const formatted = formatRemaining(remaining);
+    document.querySelector("#flash-popup-time").textContent = formatted;
+    document.querySelector("#flash-confirm-time").textContent = formatted;
     if (!remaining) {
       localStorage.removeItem(key);
       initCountdown();
@@ -297,6 +364,13 @@ function initCountdown() {
   };
   tick();
   setInterval(tick, 1000);
+}
+
+function formatRemaining(milliseconds) {
+  const hours = String(Math.floor(milliseconds / 3600000)).padStart(2, "0");
+  const minutes = String(Math.floor((milliseconds % 3600000) / 60000)).padStart(2, "0");
+  const seconds = String(Math.floor((milliseconds % 60000) / 1000)).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 function initMap() {
@@ -315,6 +389,57 @@ function initMap() {
     marker.openPopup();
   });
   window.addEventListener("resize", () => map.invalidateSize());
+}
+
+function focusCity(city) {
+  if (!map) return;
+  const cityHotels = hotels.filter(hotel => hotel.city === city);
+  if (!cityHotels.length) return;
+  const bounds = L.latLngBounds(cityHotels.map(hotel => hotel.coordinates));
+  map.fitBounds(bounds, { padding: [45, 45], maxZoom: 13 });
+  const firstIndex = hotels.indexOf(cityHotels[0]);
+  markers[firstIndex].openPopup();
+}
+
+function initFlashPopup() {
+  const dialog = document.querySelector("#flash-dialog");
+  const offerView = document.querySelector("#flash-offer-view");
+  const confirmView = document.querySelector("#flash-confirm-view");
+  const immediatePreview = new URLSearchParams(window.location.search).has("flash");
+  const delay = immediatePreview ? 800 : 75000;
+
+  const showOffer = () => {
+    if (sessionStorage.getItem("interveloxFlashShown") || dialog.open) return;
+    sessionStorage.setItem("interveloxFlashShown", "true");
+    offerView.hidden = false;
+    confirmView.hidden = true;
+    dialog.showModal();
+    document.body.classList.add("modal-open");
+  };
+
+  window.setTimeout(showOffer, delay);
+
+  const requestDismissal = () => {
+    offerView.hidden = true;
+    confirmView.hidden = false;
+  };
+
+  document.querySelector("#flash-close").addEventListener("click", requestDismissal);
+  document.querySelector("#dismiss-flash").addEventListener("click", requestDismissal);
+  document.querySelector("#keep-flash").addEventListener("click", () => {
+    confirmView.hidden = true;
+    offerView.hidden = false;
+  });
+  document.querySelector("#confirm-dismiss-flash").addEventListener("click", () => {
+    dialog.close();
+    document.body.classList.remove("modal-open");
+  });
+  document.querySelector("#accept-flash").addEventListener("click", () => {
+    dialog.close();
+    document.body.classList.remove("modal-open");
+    const hotel = hotels.find(item => item.id === "terrazas-candelaria");
+    openBooking(hotel, true);
+  });
 }
 
 function showToast(text) {
@@ -340,3 +465,4 @@ renderFlashDeals();
 renderHotels();
 initCountdown();
 initMap();
+initFlashPopup();

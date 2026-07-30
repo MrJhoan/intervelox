@@ -35,7 +35,7 @@ img { display: block; max-width: 100%; }
 .skip-link:focus { background: #fff; left: 12px; padding: 12px; position: fixed; top: 12px; z-index: 100; }
 
 .site-header {
-  background: rgba(16, 27, 22, .94);
+  background: #000;
   color: #fff;
   left: 0;
   position: fixed;
@@ -44,9 +44,9 @@ img { display: block; max-width: 100%; }
   z-index: 50;
   backdrop-filter: blur(12px);
 }
-.nav { align-items: center; display: flex; height: 92px; justify-content: space-between; }
+.nav { align-items: center; display: flex; height: 126px; justify-content: space-between; }
 .brand { align-items: center; display: inline-flex; font-size: .92rem; font-weight: 700; gap: 10px; letter-spacing: .17em; }
-.brand img { height: 86px; object-fit: contain; width: 170px; }
+.brand img { height: 122px; object-fit: contain; width: 220px; }
 .nav-links { align-items: center; display: flex; gap: 28px; }
 .nav-links a { color: rgba(255,255,255,.82); font-size: .92rem; }
 .nav-links a:hover { color: #fff; }
@@ -61,7 +61,7 @@ img { display: block; max-width: 100%; }
   color: #fff;
   display: flex;
   min-height: 760px;
-  padding: 130px 0 70px;
+  padding: 180px 0 70px;
   position: relative;
 }
 .hero-overlay { background: linear-gradient(90deg, rgba(10,24,18,.92), rgba(10,24,18,.48)); inset: 0; position: absolute; }
@@ -143,7 +143,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--gold); outline: 
 .full-field, .contact-form .button, .contact-form .form-message { grid-column: 1/-1; }
 .contact-form .button { justify-self: start; }
 
-footer { background: #101b16; color: rgba(255,255,255,.65); padding: 35px 0; }
+footer { background: #000; color: rgba(255,255,255,.65); padding: 35px 0; }
 .footer-layout { align-items: center; display: flex; justify-content: space-between; gap: 20px; }
 footer .brand { color: #fff; }
 footer .brand img { height: 92px; width: 190px; }
@@ -164,13 +164,53 @@ dialog::backdrop { background: rgba(9,16,13,.75); backdrop-filter: blur(4px); }
 .toast { background: var(--green); border-radius: 12px; bottom: 24px; color: #fff; opacity: 0; padding: 14px 20px; pointer-events: none; position: fixed; right: 24px; transform: translateY(20px); transition: .25s; z-index: 80; }
 .toast.show { opacity: 1; transform: translateY(0); }
 
+.flash-dialog {
+  background: #090806;
+  color: #fff;
+  max-width: 760px;
+  overflow: hidden;
+  padding: 0;
+}
+.flash-dialog::backdrop { background: rgba(7, 10, 8, .82); }
+.flash-offer-view, .flash-confirm-view { padding: 46px; position: relative; text-align: center; }
+.flash-dialog h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+.flash-dialog p { color: rgba(255,255,255,.72); }
+.flash-close {
+  align-items: center; background: transparent; border: 2px solid #e35345; border-radius: 50%;
+  color: #ff7467; display: flex; font-size: 1.45rem; height: 36px; justify-content: center;
+  position: absolute; right: 18px; top: 18px; width: 36px; z-index: 3;
+}
+.lightning-stage { height: 150px; margin: -20px auto 5px; position: relative; width: 210px; }
+.lightning {
+  color: #f4b942; filter: drop-shadow(0 0 15px rgba(244,185,66,.8)); font-family: serif;
+  font-size: 9rem; left: 50%; line-height: 1; position: absolute; top: 50%;
+  transform: translate(-50%, -50%) rotate(8deg); z-index: 2;
+}
+.lightning-two { color: rgba(255,255,255,.32); font-size: 7rem; transform: translate(-25%, -48%) rotate(-10deg); }
+.flash-pulse {
+  animation: flashPulse 1.8s infinite; background: rgba(244,185,66,.16); border-radius: 50%;
+  inset: 18px 42px; position: absolute;
+}
+@keyframes flashPulse {
+  0%, 100% { opacity: .35; transform: scale(.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+.popup-countdown { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 16px; margin: 24px auto; max-width: 330px; padding: 13px 18px; }
+.popup-countdown span { color: rgba(255,255,255,.6); display: block; font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; }
+.popup-countdown strong { color: #f4b942; font-size: 1.7rem; letter-spacing: .08em; }
+.flash-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 24px 0 14px; }
+.button-outline { background: transparent; border-color: rgba(255,255,255,.35); color: #fff; }
+.button-danger { background: #a9352a; color: #fff; }
+.flash-dialog small { color: rgba(255,255,255,.48); }
+.confirm-icon { align-items: center; border: 3px solid #e35345; border-radius: 50%; color: #ff7467; display: inline-flex; font-size: 3.5rem; height: 92px; justify-content: center; margin-bottom: 24px; width: 92px; }
+
 @media (max-width: 1100px) {
   .search-panel { grid-template-columns: 1fr 1fr; }
   .search-panel .button { grid-column: 1/-1; }
   .hotel-grid { grid-template-columns: 1fr 1fr; }
   .map-layout, .about-layout, .contact-layout { gap: 40px; grid-template-columns: 1fr; }
   .menu-button { display: block; }
-  .nav-links { background: #101b16; display: none; flex-direction: column; inset: 92px 0 auto; padding: 25px; position: fixed; }
+  .nav-links { background: #000; display: none; flex-direction: column; inset: 126px 0 auto; padding: 25px; position: fixed; }
   .nav-links.open { display: flex; }
 }
 @media (max-width: 640px) {
@@ -185,7 +225,8 @@ dialog::backdrop { background: rgba(9,16,13,.75); backdrop-filter: blur(4px); }
   .feature-list { grid-template-columns: 1fr; }
   .booking-head { grid-template-columns: 1fr; }
   .booking-head img { height: 180px; width: 100%; }
-  .nav { height: 78px; }
-  .brand img { height: 72px; width: 135px; }
-  .nav-links { inset: 78px 0 auto; }
+  .nav { height: 96px; }
+  .brand img { height: 92px; width: 165px; }
+  .nav-links { inset: 96px 0 auto; }
+  .flash-offer-view, .flash-confirm-view { padding: 38px 22px; }
 }

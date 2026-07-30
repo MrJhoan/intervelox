@@ -23,7 +23,10 @@ This repository now includes a reconstructed public demo that preserves the orig
 - Filter the hotel catalog by city
 - Compare nightly prices, ratings, and amenities
 - Explore time-limited flash deals with a live countdown
+- Receive a delayed animated flash-offer invitation after browsing
+- Confirm before dismissing a flash promotion without removing it from the catalog
 - View hotel locations on an interactive Leaflet/OpenStreetMap map
+- Filter destinations such as San Gil and focus the map on matching hotels
 - Calculate the number of nights and reservation total
 - Create non-commercial demonstration reservations
 - Generate a unique reservation reference
