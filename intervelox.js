@@ -8,7 +8,7 @@ const hotels = [
     flashPrice: 139000,
     rating: 4.6,
     amenities: "Piscina · Desayuno · Wi-Fi",
-    image: "https://imagenes.weekendcolombia.co/73461cdfefd5c25e82d364c0d84-La%20Terraza%20Hotel%20Chicamocha%20(2).jpeg"
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "ciudad-bonita",
@@ -19,7 +19,7 @@ const hotels = [
     flashPrice: 126000,
     rating: 4.4,
     amenities: "Gimnasio · Restaurante · Wi-Fi",
-    image: "https://images.e-tsw.com/_lib/vimages/Bucaramanga/Hotels/Hotel-Ciudad-Bonita/Gallery/Bucaramanga-Ciudad-Bon-Piscina-2.jpg"
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "dann-carlton",
@@ -29,7 +29,7 @@ const hotels = [
     price: 320000,
     rating: 4.8,
     amenities: "Spa · Piscina · Desayuno",
-    image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/125332548.jpg?k=9cedc271f0fe68f9f4a4a3944e345eecacac776233623dc3727cd19e32f2b0af&o=&hp=1"
+    image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=82"
   },
   {
     id: "sofitel-santa-clara",
@@ -301,7 +301,7 @@ function initCountdown() {
 
 function initMap() {
   if (!window.L) return;
-  map = L.map("hotel-map", { scrollWheelZoom: false }).setView([5.4, -74.5], 6);
+  map = L.map("hotel-map", { scrollWheelZoom: true }).setView([5.4, -74.5], 6);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
   markers = hotels.map(hotel => L.marker(hotel.coordinates).addTo(map).bindPopup(`<strong>${safeText(hotel.name)}</strong><br>${safeText(hotel.city)}<br>Desde ${currency.format(hotel.price)}`));
   const cities = [...new Set(hotels.map(hotel => hotel.city))];

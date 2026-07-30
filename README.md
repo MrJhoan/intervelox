@@ -73,7 +73,8 @@ Intervelox/
 │   ├── contact.js          # Demonstration contact endpoint
 │   └── reservations.js     # Reservation validation and reference generation
 ├── imagenes/
-│   └── Logo.jpg            # Original project logo
+│   ├── Logo.jpg                         # Original 2022 logo
+│   └── intervelox-logo-restored.png     # Restored logo with corrected name
 ├── index.html              # Current public application
 ├── intervelox.css          # Responsive visual system
 ├── intervelox.js           # Search, offers, map, reservations, and contact flows
